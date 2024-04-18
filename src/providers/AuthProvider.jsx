@@ -7,12 +7,11 @@ import {
   } from "firebase/auth";
   import PropTypes from 'prop-types';
   import { createContext, useEffect, useState } from 'react';
-  import { GoogleAuthProvider } from "firebase/auth";
-  
+  import { GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth"; // Import FacebookAuthProvider
   import auth from '/firebase/firebase.config.js';
   
-  // Use the GoogleAuthProvider directly from "firebase/auth"
   const googleProvider = new GoogleAuthProvider();
+  const facebookProvider = new FacebookAuthProvider(); // Create a new instance of FacebookAuthProvider
   
   export const AuthContext = createContext(null);
   
@@ -30,6 +29,10 @@ import {
   
       const signInWithGoogle = () => {
           return signInWithPopup(auth, googleProvider);
+      };
+  
+      const signInWithFacebook = () => { // Implement signInWithFacebook function
+          return signInWithPopup(auth, facebookProvider);
       };
   
       const logOut = () => {
@@ -53,7 +56,8 @@ import {
           signInUser,
           logOut,
           loading,
-          signInWithGoogle
+          signInWithGoogle,
+          signInWithFacebook // Include signInWithFacebook in the authInfo object
       };
   
       return (

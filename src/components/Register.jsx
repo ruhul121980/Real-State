@@ -1,28 +1,25 @@
-import React, { useContext } from 'react'; // Added import statement for useContext
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 export default function Register() {
-  const authInfo = useContext(AuthContext); // Using useContext to access AuthContext
-  console.log(authInfo);
-
-  const{createUser}=useContext(AuthContext)
+  const { createUser } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, email, password);
+    const imageUrl = e.target.imageUrl.value; // Extract image URL from input
+    console.log(name, email, password, imageUrl); // Log name, email, password, and imageUrl
     // create user in firebase
-    createUser(email,password)
-    .then(result=>{
-      console.log(result.user)
-    })
-    .catch(error=>{
-      console.error(error)
-
-    })
+    createUser(email, password)
+      .then(result => {
+        console.log(result.user);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
@@ -53,7 +50,12 @@ export default function Register() {
                 <span className="label-text">Password</span>
               </label>
               <input type="password" placeholder="Password" name="password" required className="input input-bordered" />
-              {/* Removed empty link */}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Image URL</span>
+              </label>
+              <input type="text" placeholder="Image URL" name="imageUrl" required className="input input-bordered" />
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">Register</button>
