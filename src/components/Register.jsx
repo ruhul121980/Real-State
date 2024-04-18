@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { AuthContext } from '../providers/AuthProvider';
 
 export default function Register() {
     const { createUser } = useContext(AuthContext);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const handleRegister = (e) => {
       e.preventDefault();
@@ -11,6 +12,7 @@ export default function Register() {
       const email = e.target.email.value;
       const password = e.target.password.value;
       const photoURL = e.target.imageUrl.value;
+      navigate('/');
    
       createUser(email, password, name, photoURL)
           .then(result => {

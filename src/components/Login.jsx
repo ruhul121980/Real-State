@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
+import Swal from 'sweetalert2'; 
 
 export default function Login() {
     const { signInUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
@@ -10,7 +11,6 @@ export default function Login() {
        e.preventDefault();
        const email = e.target.email.value;
        const password = e.target.password.value;
-       console.log(email, password);
       
        signInUser(email, password)
         .then(result => {
@@ -18,7 +18,15 @@ export default function Login() {
           e.target.reset();
           navigate('/');
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+          
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Incorrect password!',
+          });
+        });
     };
 
     const handleGoogleSignIn = () => {
@@ -75,7 +83,7 @@ export default function Login() {
                   <button className="btn btn-link">Register</button>
                 </Link>
                 <p><button onClick={handleGoogleSignIn} className="btn btn-ghost">Google</button></p>
-                <p><button onClick={handleFacebookSignIn} className="btn btn-ghost">Facebook</button></p> {/* Add Facebook login button */}
+                <p><button onClick={handleFacebookSignIn} className="btn btn-ghost">Facebook</button></p> 
               </p>
             </div>
           </div>
