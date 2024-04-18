@@ -9,7 +9,7 @@ export default function Estate() {
     const { user } = useContext(AuthContext); 
 
     useEffect(() => {
-        fetch('house.json')
+        fetch('/house.json')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
