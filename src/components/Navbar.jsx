@@ -20,8 +20,9 @@ export default function Navbar() {
             {
                 user && (
                     <>
-                        <li><NavLink to="/profile" activeClassName="font-bold">Profile</NavLink></li>
+                       
                         <li><NavLink to="/orders" activeClassName="font-bold">Update Profile</NavLink></li>
+                        <li> <Link to="/order" className="btn btn-sm ">Contact Us</Link></li>
                     </>
                 )
             }
@@ -50,6 +51,8 @@ export default function Navbar() {
                 <div className="flex items-center relative">
                     {user ? (
                         <>
+                       
+
                             <span
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}

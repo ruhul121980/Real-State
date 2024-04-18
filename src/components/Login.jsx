@@ -31,7 +31,7 @@ export default function Login() {
         });
     };
 
-    const handleFacebookSignIn = () => { // Add handleFacebookSignIn function
+    const handleFacebookSignIn = () => { 
       signInWithFacebook()
         .then(result => {
           console.log(result.user);
