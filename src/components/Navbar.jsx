@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 export default function Navbar() {
     const { user, logOut } = useContext(AuthContext);
+    const [isHovered, setIsHovered] = useState(false);
 
     const handleLogout = () => {
         logOut()
             .then(() => console.log('logged out'))
             .catch(error => console.error(error));
     };
+
+    const userPhotoURL = user && user.photoURL;
 
     const navLinks = (
         <>
@@ -44,18 +47,22 @@ export default function Navbar() {
                         {navLinks}
                     </ul>
                 </div>
-                <div className="flex items-center">
-                    {
-                        user ? (
-                            <>
-                                {user.photoURL && <img src={user.photoURL} alt="User profile" className="w-8 h-8 rounded-full mr-2" />} {/* Display user's profile image */}
-                                <span className="text-sm mr-2">{user.email}</span>
-                                <button onClick={handleLogout} className="btn btn-sm">Sign Out</button>
-                            </>
-                        ) : (
-                            <Link to="/login" className="btn btn-sm">Login</Link>
-                        )
-                    }
+                <div className="flex items-center relative">
+                    {user ? (
+                        <>
+                            <span
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
+                                className="relative"
+                            >
+                                <img src={userPhotoURL} alt="User profile" className="w-8 h-8 rounded-full mr-2" />
+                                {isHovered && <span className="absolute top-0 left-0 bg-white p-1 rounded">{user.displayName}</span>}
+                            </span>
+                            <button onClick={handleLogout} className="btn btn-sm">Sign Out</button>
+                        </>
+                    ) : (
+                        <Link to="/login" className="btn btn-sm">Login</Link>
+                    )}
                 </div>
             </div>
         </div>
