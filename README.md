@@ -5,4 +5,4 @@ Features:
 * User Registration and Login
 * Easy userInterface
 * Eyecatching home page
-* User data security
+* User data security.
